@@ -34,7 +34,7 @@ a:hover {
 
 .food {
     width: 90%;
-    margin-top: 9%;
+    margin-top: 20%;
     margin-left: 2.5%;
     border: 1px solid black;
     margin-bottom: 9%;
@@ -98,6 +98,52 @@ nav {
 nav a {
     display: block;
 }
+
+button {
+    font-size: 0.9em;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    font-family: 'Mukta', sans-serif;
+    font-size: 1.2em;
+    color: black;
+    background-color: cadetblue;
+    border-radius: 2px;
+}
+
+#modal {
+    padding-top: 10vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, .5);
+}
+
+#modal aside {
+    text-align: center;
+    padding: 1em;
+    max-width: 600px;
+    max-height: 900px;
+    margin: auto;
+    background: #fff;
+}
+
+#modal img {
+    text-align: center;
+    padding-bottom: 3em;
+}
+
+#modalp {
+    text-align: center;
+    margin: auto;
+    padding-top: 1em;
+    padding-bottom: 2em;
+    line-height: 1.4em;
+}
+
 @media screen and (min-width: 792px) {
     nav a {
         display: inline;

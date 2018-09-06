@@ -19,6 +19,14 @@
     <h1>MENU</h1>
     <hr>
     <main class="grid"></main>
+    <div id="modal" class="hide">
+            <aside>
+                <h2>Name</h2>
+                <p id="modalp">Description</p>
+                <img alt="product image">
+            </aside>
+        </div>
+
 
     <template id="courseTemplate">
         <article class="course">
@@ -30,6 +38,7 @@
             <aside class="info">
                 <h2> Russian Ringbread</h2>
                 <p>Russisk ringbrød af Karapatisk mel</p>
+                <button>Read more</button>
                 <div class="price"><h2><span class="original">29kr.</span> <span class="discount"></span></h2></div>
                 <img class="veggie" src="veggie.png">
                 <img class="alco" src="alco.png">
@@ -46,12 +55,16 @@
 
         const productListEndspoint = "https://kea-alt-del.dk/t5/api/productlist";
         const catLink = "https://kea-alt-del.dk/t5/api/categories";
+        const singleProductEndpoint="https://kea-alt-del.dk/t5/api/product?id=";
         const template = document.querySelector("#courseTemplate").content;
         const main = document.querySelector("main");
         const nav = document.querySelector("nav");
         const allLink = document.querySelector("#allLink");
+        const modal = document.querySelector('#modal');
 
         allLink.addEventListener("click", () => filterBy("all"));
+
+        modal.addEventListener("click", () => modal.classList.add("hide"));
 
 
         // FROM HERE
@@ -87,6 +100,13 @@
             })
         }
 
+        function showDetails(product) {
+    console.log(product)
+    modal.querySelector("h2").textContent = product.name;
+    modal.querySelector("img").src = "http://kea-alt-del.dk/t5/site/imgs/small/" + product.image + "-sm.jpg";
+    modal.querySelector("p").textContent = product.longdescription;
+    modal.classList.remove("hide");
+}
 
         //this is a shorter way to make a function: annonymous function:
 
@@ -98,6 +118,10 @@
                 clone.querySelector("p").textContent = product.shortdescription;
                 //clone.querySelector(".price").textContent = product.price;
                 clone.querySelector(".food").src = "https://kea-alt-del.dk/t5/site/imgs/medium/" + product.image + "-md.jpg";
+                clone.querySelector("button").addEventListener("click", () => {
+
+            fetch(singleProductEndpoint + product.id).then(result => result.json()).then(product => showDetails(product));
+        })
 
                 //ADDING THE DISCOUNT STRIKE TO THE ONES IT APPLIES TO
 
@@ -129,6 +153,8 @@
         }
 
         //TO HERE is all it takes to fetch the data from JSON.
+
+
 
     </script>
 </body>
