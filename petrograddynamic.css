@@ -128,12 +128,13 @@ button {
     max-width: 600px;
     max-height: 900px;
     margin: auto;
-    background: #fff;
+    background-color: beige;
 }
 
 #modal img {
     text-align: center;
-    padding-bottom: 3em;
+    margin-bottom: 3em;
+    border: 5px double red;
 }
 
 #modalp {
