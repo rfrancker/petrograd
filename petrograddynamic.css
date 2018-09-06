@@ -1,0 +1,152 @@
+header img {
+    width: 40%;
+    margin-left: 32.5%;
+    margin-right: 27.5%;
+}
+
+body {
+    background-color: cadetblue;
+}
+
+h2 {
+    font-family: 'Mukta', sans-serif;
+}
+
+section h2 {
+    grid-column: 1/-1;
+}
+
+h1 {
+    font-family: 'Mukta', sans-serif;
+}
+
+a:hover {
+    color: red;
+    font-weight: bold;
+}
+
+.ramme {
+    background-color: beige;
+    width: 90%;
+    border: 5px double red;
+    margin: 5%;
+}
+
+.food {
+    width: 90%;
+    margin-top: 9%;
+    margin-left: 2.5%;
+    border: 1px solid black;
+    margin-bottom: 9%;
+}
+
+.price {
+    background-color: red;
+    margin-right: 5%;
+}
+
+.soldOut {
+    opacity: 0.3;
+
+}
+
+.veggie {
+    width: 5%;
+}
+
+.alco {
+    width: 10%;
+}
+
+.veggie2 {
+    width: 1%;
+}
+
+.alco2 {
+    width: 2%;
+}
+
+.lactose2 {
+    width: 2.5%
+}
+
+.nut2 {
+    width: 2%;
+}
+
+.lactose {
+    width: 10%;
+}
+
+.nut {
+    width: 10%;
+    padding-left: 5px;
+}
+
+.hide {
+    display: none;
+}
+
+a {
+    text-transform: uppercase;
+    text-decoration: none;
+    color: black;
+}
+nav {
+    font-family: 'Mukta', sans-serif;
+}
+nav a {
+    display: block;
+}
+@media screen and (min-width: 792px) {
+    nav a {
+        display: inline;
+    }
+    nav {
+    display: flex;
+    justify-content: space-around;
+    }
+}
+
+.strike {
+    text-decoration: line-through;
+}
+
+
+.ramme {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+}
+
+@media screen and (min-width: 792px) {
+    section {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+    }
+
+    .food {
+        margin-top: 20%
+    }
+}
+
+@media screen and (min-width: 992px) {
+    section {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: auto;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    section {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+    }
+
+    .food {
+        margin-top: 20%;
+    }
+}

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Petrograd</title>
+    <link rel="stylesheet" href="petrograddynamic.css">
+    <link href="https://fonts.googleapis.com/css?family=Mukta" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <img src="healine.png">
+    </header>
+    <nav>
+        <a href="#" id="allLink">ALL</a>
+    </nav>
+    <h1>MENU</h1>
+    <hr>
+    <main class="grid"></main>
+
+    <template id="courseTemplate">
+        <article class="course">
+        <div>
+        <div class="ramme">
+            <div class="dish">
+                <img class="food" src="imgs/medium/ringbroed-druer-md.jpg">
+            </div>
+            <aside class="info">
+                <h2> Russian Ringbread</h2>
+                <p>Russisk ringbrød af Karapatisk mel</p>
+                <div class="price"><h2><span class="original">29kr.</span> <span class="discount"></span></h2></div>
+                <img class="veggie" src="veggie.png">
+                <img class="alco" src="alco.png">
+            </aside>
+        </div>
+        </div>
+        </article>
+        </template>
+    <hr>
+    <p><img class="veggie2" src="veggie.png"> = Vegetarian <img class="alco2" src="alco.png"> = Contains alcohol</p>
+
+    <script>
+        "use strict";
+
+        const productListEndspoint = "https://kea-alt-del.dk/t5/api/productlist";
+        const catLink = "https://kea-alt-del.dk/t5/api/categories";
+        const template = document.querySelector("#courseTemplate").content;
+        const main = document.querySelector("main");
+        const nav = document.querySelector("nav");
+        const allLink = document.querySelector("#allLink");
+
+        allLink.addEventListener("click", () => filterBy("all"));
+
+
+        // FROM HERE
+
+
+        fetch(catLink).then(promise => promise.json()).then(data => buildCategories(data));
+
+        function buildCategories(data) {
+            data.forEach(category => {
+                const newSection = document.createElement("section");
+                const newH2 = document.createElement("h2");
+                const newAnchor = document.createElement("a");
+                newAnchor.href = "#"; //makes it not refresh the page when link is clicked.
+                newAnchor.textContent = category;
+                newAnchor.addEventListener("click", () => filterBy(category));
+                newSection.id = category;
+                newH2.textContent = category;
+                newSection.appendChild(newH2);
+                main.appendChild(newSection);
+                nav.appendChild(newAnchor);
+
+            });
+            fetch(productListEndspoint).then(event => event.json()).then(data => show(data));
+        }
+
+        function filterBy(category) {
+            document.querySelectorAll("section").forEach(section => {
+                if (section.id == category || category == "all") {
+                    section.classList.remove("hide");
+                } else {
+                    section.classList.add("hide");
+                }
+            })
+        }
+
+
+        //this is a shorter way to make a function: annonymous function:
+
+        function show(pList) {
+            pList.forEach(product => {
+                const parent = document.querySelector("#" + product.category);
+                const clone = template.cloneNode(true);
+                clone.querySelector("h2").textContent = product.name;
+                clone.querySelector("p").textContent = product.shortdescription;
+                //clone.querySelector(".price").textContent = product.price;
+                clone.querySelector(".food").src = "https://kea-alt-del.dk/t5/site/imgs/medium/" + product.image + "-md.jpg";
+
+                //ADDING THE DISCOUNT STRIKE TO THE ONES IT APPLIES TO
+
+                if (product.discount) {
+                    const newPrice = Math.round(product.price - product.price * product.discount / 100);
+                    clone.querySelector(".price .original").classList.add("strike");
+                    clone.querySelector(".discount").textContent = newPrice + "kr.";
+                }
+
+                if (product.vegetarian) {
+
+                } else {
+                    clone.querySelector(".veggie").classList.add("hide");
+                }
+
+                if (product.alcohol) {
+
+                } else {
+                    clone.querySelector(".alco").classList.add("hide");
+                }
+
+                if (product.soldout) {
+                    clone.querySelector('.course').classList.add('soldOut')
+                }
+
+                console.log(product);
+                parent.appendChild(clone);
+            })
+        }
+
+        //TO HERE is all it takes to fetch the data from JSON.
+
+    </script>
+</body>
+
+</html>
